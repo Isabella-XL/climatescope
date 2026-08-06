@@ -1,0 +1,11 @@
+-r base.txt
+
+pytest
+pytest-cov
+httpx
+
+black
+ruff
+mypy
+
+pre-commit

@@ -1,0 +1,8 @@
+{
+  "python.defaultInterpreterPath": ".venv",
+  "python.testing.pytestEnabled": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.ruff": "explicit"
+  }
+}
