@@ -7,6 +7,7 @@ from sqlalchemy import engine_from_config, pool
 from alembic import context
 from app.db.base import Base
 from app.models import climate_dataset  # noqa: F401
+from app.models.climate_measurement import ClimateMeasurement  # noqa: F401
 
 load_dotenv()
 
