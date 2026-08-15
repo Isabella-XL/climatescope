@@ -224,3 +224,6 @@ __pycache__/
 .env.local
 .env.development
 .env.production
+
+# Trained ML models
+*.joblib
