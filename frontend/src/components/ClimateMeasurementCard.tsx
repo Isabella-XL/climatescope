@@ -14,7 +14,7 @@ function ClimateMeasurementCard({
       <p>Date: {measurement.date}</p>
 
       <p>
-        Temperature: {measurement.temperature_c}°C
+        Temperature: {measurement.mean_temperature_c}°C
       </p>
 
       <p>

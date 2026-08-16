@@ -1,24 +1,34 @@
-from datetime import date
-
 from app.db.database import SessionLocal
 from app.models.climate_measurement import ClimateMeasurement
 from app.services.climate_data.database_loader import save_measurements
-from app.services.climate_data.loader import load_csv
+from app.services.climate_data.ecad_loader import (
+    load_ecad_temperature_dataset,
+)
 
-dataset = load_csv("data/raw/climate_sample.csv")
+dataset = load_ecad_temperature_dataset(
+    "data/raw/TG_STAID2759.txt",
+    "data/raw/TN_STAID2759.txt",
+    "data/raw/TX_STAID2759.txt",
+)
 
 measurements = [
     ClimateMeasurement(
-        date=date.fromisoformat(row["date"]),
-        location=row["location"],
-        latitude=float(row["latitude"]),
-        longitude=float(row["longitude"]),
-        temperature_c=float(row["temperature_c"]),
+        date=row["DATE"].date(),
+        location="Berlin-Tempelhof",
+        latitude=52.473,
+        longitude=13.403,
+        mean_temperature_c=float(row["TG"]),
+        min_temperature_c=float(row["TN"]),
+        max_temperature_c=float(row["TX"]),
     )
     for _, row in dataset.iterrows()
 ]
 
+
 with SessionLocal() as session:
+    session.query(ClimateMeasurement).delete()
+
     save_measurements(session, measurements)
 
-print(f"Imported {len(measurements)} climate measurements.")
+
+print(f"Imported {len(measurements)} measurements.")

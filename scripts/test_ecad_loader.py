@@ -1,12 +1,18 @@
-import app.services.climate_data.ecad_loader as ecad_loader
-
-print("LOADER FILE:", ecad_loader.__file__)
-
-dataset = ecad_loader.load_ecad_temperature(
-    "data/raw/TG_STAID2759.txt",
-    "TG",
+from app.services.climate_data.ecad_loader import (
+    load_ecad_temperature_dataset,
 )
 
-print(dataset.head())
+dataset = load_ecad_temperature_dataset(
+    "data/raw/TG_STAID2759.txt",
+    "data/raw/TN_STAID2759.txt",
+    "data/raw/TX_STAID2759.txt",
+)
+
+print(dataset.head(10))
+print()
 print(dataset.dtypes)
-print(dataset.shape)
+print()
+print(f"Rows: {len(dataset)}")
+print()
+print("Missing values:")
+print(dataset.isna().sum())

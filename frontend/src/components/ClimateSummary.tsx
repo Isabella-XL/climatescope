@@ -15,17 +15,23 @@ function ClimateSummary({ summary }: ClimateSummaryProps) {
       <div className="summary-grid">
         <article className="summary-card">
           <h3>Average</h3>
-          <p>{summary.average_temperature_c.toFixed(1)}°C</p>
+          <p>{summary.average_temperature_c !== null
+  ? `${summary.average_temperature_c.toFixed(1)}°C`
+  : "N/A"}</p>
         </article>
 
         <article className="summary-card">
           <h3>Minimum</h3>
-          <p>{summary.minimum_temperature_c.toFixed(1)}°C</p>
+          <p>{summary.minimum_temperature_c !== null
+    ? `${summary.minimum_temperature_c.toFixed(1)}°C`
+    : "N/A"}</p>
         </article>
 
         <article className="summary-card">
           <h3>Maximum</h3>
-          <p>{summary.maximum_temperature_c.toFixed(1)}°C</p>
+          <p>{summary.maximum_temperature_c !== null
+    ? `${summary.maximum_temperature_c.toFixed(1)}°C`
+    : "N/A"}</p>
         </article>
 
         <article className="summary-card">

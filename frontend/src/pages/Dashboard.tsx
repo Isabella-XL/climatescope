@@ -5,8 +5,11 @@ import TemperatureChart from "../components/TemperatureChart";
 
 import ClimateSummary from "../components/ClimateSummary";
 import {
+   getClimateForecast,
   getClimateSummary,
   getMeasurements,
+  buildForecastFeatures,
+  type ClimateForecast,
   type ClimateMeasurement,
   type ClimateSummary as ClimateSummaryData,
 } from "../services/climateApi";
@@ -17,6 +20,8 @@ import {
 function Dashboard() {
   const [summary, setSummary] = useState<ClimateSummaryData | null>(null);
   const [measurements, setMeasurements] = useState<ClimateMeasurement[]>([]);
+  const [forecast, setForecast] =
+  useState<ClimateForecast | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -25,8 +30,16 @@ function Dashboard() {
       try {
         const data = await getMeasurements();
         setMeasurements(data);
+        const features = buildForecastFeatures(data);
 
-          const summaryData = await getClimateSummary("Berlin");
+const forecastData = await getClimateForecast(features);
+setForecast(forecastData);
+
+
+console.log("Forecast features:", features);
+console.log("Forecast:", forecastData);
+
+          const summaryData = await getClimateSummary("Berlin-Tempelhof");
   setSummary(summaryData);
 
       } catch (error) {
@@ -64,6 +77,22 @@ return (
     <section className="dashboard-content">
       {summary && <ClimateSummary summary={summary} />}
 
+{forecast && (
+  <section>
+    <h2>Temperature Forecast</h2>
+    <p>
+      Location: {forecast.location}
+    </p>
+    <p>
+  Forecast date: {forecast.forecast_date}
+</p>
+    <p>
+      Predicted temperature:{" "}
+      {forecast.predicted_temperature_c.toFixed(1)}°C
+    </p>
+  </section>
+)}
+
         <TemperatureChart measurements={measurements} />
 
       <section className="measurements-section">
@@ -73,7 +102,7 @@ return (
         </div>
 
         <div className="measurement-grid">
-          {measurements.map((measurement) => (
+          {measurements.slice(-50).map((measurement) => (
             <ClimateMeasurementCard
               key={measurement.id}
               measurement={measurement}

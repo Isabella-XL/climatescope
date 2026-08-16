@@ -6,10 +6,13 @@ from sqlalchemy.orm import Session
 from app.db.session import get_db
 from app.models.climate_measurement import ClimateMeasurement
 from app.schemas.climate import (
+    ClimateForecastRequest,
+    ClimateForecastResponse,
     ClimateMeasurementResponse,
     ClimateSummaryResponse,
 )
 from app.services.climate_data.analysis import analyze_measurements
+from app.services.forecasting.predictor import predict_temperature
 
 router = APIRouter(
     prefix="/climate",
@@ -78,4 +81,24 @@ def get_summary(
         average_temperature_c=result["average"],
         minimum_temperature_c=result["minimum"],
         maximum_temperature_c=result["maximum"],
+    )
+
+
+@router.post(
+    "/forecast",
+    response_model=ClimateForecastResponse,
+)
+def forecast_temperature(
+    request: ClimateForecastRequest,
+) -> ClimateForecastResponse:
+    features = request.model_dump(
+        exclude={"forecast_date"},
+    )
+
+    prediction = predict_temperature(features)
+
+    return ClimateForecastResponse(
+        location="Berlin",
+        forecast_date=request.forecast_date,
+        predicted_temperature_c=prediction,
     )

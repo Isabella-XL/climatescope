@@ -18,7 +18,7 @@ function TemperatureChart({
 }: TemperatureChartProps) {
   const chartData = measurements.map((measurement) => ({
     date: measurement.date,
-    temperature: measurement.temperature_c,
+    temperature: measurement.mean_temperature_c,
   }));
 
   return (

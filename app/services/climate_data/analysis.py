@@ -30,6 +30,6 @@ def analyze_measurements(
 
     measurements = query.all()
 
-    temperatures = [measurement.temperature_c for measurement in measurements]
+    temperatures = [measurement.mean_temperature_c for measurement in measurements]
 
     return calculate_temperature_summary(temperatures)

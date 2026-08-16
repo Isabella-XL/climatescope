@@ -14,4 +14,17 @@ class ClimateMeasurement(Base):
     location: Mapped[str] = mapped_column(String(255), nullable=False)
     latitude: Mapped[float] = mapped_column(Float, nullable=False)
     longitude: Mapped[float] = mapped_column(Float, nullable=False)
-    temperature_c: Mapped[float] = mapped_column(Float, nullable=False)
+    mean_temperature_c: Mapped[float] = mapped_column(
+        Float,
+        nullable=False,
+    )
+
+    min_temperature_c: Mapped[float] = mapped_column(
+        Float,
+        nullable=False,
+    )
+
+    max_temperature_c: Mapped[float] = mapped_column(
+        Float,
+        nullable=False,
+    )
