@@ -5,9 +5,12 @@ class Settings(BaseSettings):
     database_url: str
     openai_api_key: str = ""
     secret_key: str
-    environment: str
+    environment: str = "production"
 
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        extra="ignore",
+    )
 
 
 settings = Settings()

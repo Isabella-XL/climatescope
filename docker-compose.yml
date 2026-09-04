@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:16
+    container_name: climatescope-db
+    environment:
+      POSTGRES_DB: climatescope
+      POSTGRES_USER: climatescope
+      POSTGRES_PASSWORD: climatescope_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    container_name: climatescope-api
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+psycopg://climatescope:climatescope_dev_password@db:5432/climatescope
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      SECRET_KEY: ${SECRET_KEY:-local-dev-secret}
+      ENVIRONMENT: development
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
