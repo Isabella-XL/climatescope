@@ -6,8 +6,15 @@ from app.models.climate_measurement import ClimateMeasurement
 
 def calculate_temperature_summary(
     temperatures: list[float],
-) -> dict[str, float | int]:
+) -> dict[str, float | int | None]:
     """Calculate basic temperature statistics."""
+    if not temperatures:
+        return {
+            "count": 0,
+            "average": None,
+            "minimum": None,
+            "maximum": None,
+        }
     series = pd.Series(temperatures)
 
     return {

@@ -98,7 +98,7 @@ def forecast_temperature(
     prediction = predict_temperature(features)
 
     return ClimateForecastResponse(
-        location="Berlin",
+        location="Berlin-Tempelhof",
         forecast_date=request.forecast_date,
         predicted_temperature_c=prediction,
     )
