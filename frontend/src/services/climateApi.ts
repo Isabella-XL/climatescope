@@ -41,7 +41,7 @@ export interface ClimateForecast {
 
 export async function getMeasurements(): Promise<ClimateMeasurement[]> {
   const response = await fetch(
-    `${API_BASE_URL}/climate/measurements`,
+    `${API_BASE_URL}/api/v1/climate/measurements`,
   );
 
   if (!response.ok) {
@@ -56,7 +56,7 @@ export async function getClimateSummary(
   location?: string,
 ): Promise<ClimateSummary> {
   const url = new URL(
-    `${API_BASE_URL}/climate/summary`,
+    `${API_BASE_URL}/api/v1/climate/summary`,
   );
 
   if (location) {
@@ -76,7 +76,7 @@ export async function getClimateForecast(
   features: ClimateForecastRequest,
 ): Promise<ClimateForecast> {
   const response = await fetch(
-    `${API_BASE_URL}/climate/forecast`,
+    `${API_BASE_URL}/api/v1/climate/forecast`,
     {
       method: "POST",
       headers: {
