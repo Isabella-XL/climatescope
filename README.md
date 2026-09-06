@@ -10,7 +10,7 @@ The project demonstrates an end-to-end data and machine-learning workflow: clima
 
 ![ClimateScope Dashboard1](docs/images/Screenshot1.png)
 
-![ClimateScope Dashboard2](docs/images/Screenshot 2.png)
+![ClimateScope Dashboard2](docs/images/Screenshot2.png)
 
 
 ## 🚀 Live Demo
